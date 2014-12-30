@@ -1,0 +1,18 @@
+[
+	{
+		"collection" : "articles",
+		"index" : "articles",
+		"mappings" : [	
+						{
+							"dbField": "author",
+							"esField": "author",
+							"type" : "String"
+						},
+						{
+							"dbField": "content",
+							"esField": "content",
+							"type" : "String"
+						}
+					]
+	}
+]

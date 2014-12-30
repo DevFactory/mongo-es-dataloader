@@ -1,4 +1,4 @@
-package com.threegear.elasticsearch.common;
+package com.threegear.util;
 
 public interface Constants {
 

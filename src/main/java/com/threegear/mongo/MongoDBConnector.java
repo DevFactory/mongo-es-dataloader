@@ -1,4 +1,4 @@
-package com.threegear.elasticsearch.common;
+package com.threegear.mongo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.threegear.util.Constants;
 
 public enum MongoDBConnector {
 	INSTANCE;
