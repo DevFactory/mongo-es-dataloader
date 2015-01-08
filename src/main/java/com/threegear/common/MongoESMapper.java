@@ -1,15 +1,10 @@
 package com.threegear.common;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.threegear.model.IndexConfigModel;
 
 public enum MongoESMapper
@@ -18,7 +13,7 @@ public enum MongoESMapper
 
 	private final Logger logger = Logger.getLogger( this.getClass().getTypeName() );
 
-	private List<IndexConfigModel> configuration;
+	private IndexConfigModel[] configuration;
 
 	private MongoESMapper()
 	{
@@ -27,21 +22,16 @@ public enum MongoESMapper
 		{
 			freader = new FileReader( "mongo-es-mapping.json" );
 
-			Type listType = new TypeToken<ArrayList<IndexConfigModel>>()
-			{
-			}.getType();
-
-			configuration = new Gson().fromJson( freader, listType );
+			configuration = new Gson().fromJson( freader, IndexConfigModel[].class );
 		}
-		catch ( FileNotFoundException e )
+		catch ( Exception e )
 		{
 			e.printStackTrace();
-			logger.log( Level.SEVERE, System.getProperty( "user.dir" ) );
 			logger.log( Level.SEVERE, "Failed to read mongo-es-mapping." );
 		}
 	}
 
-	public List<IndexConfigModel> getConfiguration()
+	public IndexConfigModel[] getConfiguration()
 	{
 		return configuration;
 	}

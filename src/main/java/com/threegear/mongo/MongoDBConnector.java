@@ -10,11 +10,11 @@ import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.threegear.util.Constants;
 
-public enum MongoDBConnector {
+public enum MongoDBConnector
+{
 	INSTANCE;
 
-	private final Logger logger = Logger.getLogger(MongoDBConnector.class
-			.getTypeName());
+	private final Logger logger = Logger.getLogger( MongoDBConnector.class.getTypeName() );
 
 	private Properties dbProperties;
 
@@ -22,42 +22,49 @@ public enum MongoDBConnector {
 
 	private DB dataBase;
 
-	private MongoDBConnector() {
-		try {
+	private MongoDBConnector()
+	{
+		try
+		{
 			loadDbProperties();
 
-			mongoClient = new MongoClient(getDBIpAddress(), getDBPort());
-			dataBase = mongoClient.getDB(getDBName());
-		} catch (Exception e) {
+			mongoClient = new MongoClient( getDBIpAddress(), getDBPort() );
+			dataBase = mongoClient.getDB( getDBName() );
+		}
+		catch ( Exception e )
+		{
 			e.printStackTrace();
-			logger.log(Level.SEVERE, "Failed to open connection to DB : "
-					+ getDBName() + " at IP : " + getDBIpAddress()
-					+ " and Port : " + getDBPort());
+			logger.log( Level.SEVERE, "Failed to open connection to DB : " + getDBName() + " at IP : " + getDBIpAddress() + " and Port : " + getDBPort() );
 
-			throw new RuntimeException(e);
+			throw new RuntimeException( e );
 		}
 	}
 
-	private void loadDbProperties() throws IOException {
-		FileInputStream fin = new FileInputStream("dbConfig.properties");
+	private void loadDbProperties() throws IOException
+	{
+		FileInputStream fin = new FileInputStream( "dbConfig.properties" );
 
 		dbProperties = new Properties();
-		dbProperties.load(fin);
+		dbProperties.load( fin );
 	}
 
-	private String getDBName() {
-		return dbProperties.getProperty(Constants.DB_NAME);
+	private String getDBName()
+	{
+		return dbProperties.getProperty( Constants.DB_NAME );
 	}
 
-	private int getDBPort() {
-		return Integer.parseInt(dbProperties.getProperty(Constants.DB_PORT));
+	private int getDBPort()
+	{
+		return Integer.parseInt( dbProperties.getProperty( Constants.DB_PORT ) );
 	}
 
-	private String getDBIpAddress() {
-		return dbProperties.getProperty(Constants.DB_IPADDRESS);
+	private String getDBIpAddress()
+	{
+		return dbProperties.getProperty( Constants.DB_IPADDRESS );
 	}
 
-	public DB getDatabase() {
+	public DB getDatabase()
+	{
 		return dataBase;
 	}
 }
